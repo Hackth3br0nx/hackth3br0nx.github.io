@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alex Garcia | Cybersecurity Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a; --bg2: #0f1628; --bg3: #141c35;
+    --accent: #00f5a0; --accent2: #00c3ff; --accent3: #ff6b35;
+    --text: #e8eaf6; --muted: #7986cb; --border: rgba(0,245,160,0.15);
+    --mono: 'Share Tech Mono', monospace; --sans: 'Syne', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:var(--sans); overflow-x:hidden; }
+  body::before {
+    content:''; position:fixed; inset:0; z-index:0;
+    background-image: linear-gradient(rgba(0,245,160,0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0,245,160,0.03) 1px, transparent 1px);
+    background-size:40px 40px; pointer-events:none;
+  }
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(10,14,26,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 2rem; height:60px; }
+  .nav-logo { font-family:var(--mono); color:var(--accent); font-size:14px; letter-spacing:2px; }
+  .nav-links { display:flex; gap:2rem; }
+  .nav-links a { font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none; letter-spacing:1px; cursor:pointer; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--accent); }
+  section { position:relative; z-index:1; padding:5rem 2rem; max-width:1100px; margin:0 auto; }
+  #about { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:80px; }
+  .hero-tag { font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:3px; margin-bottom:1.5rem; display:flex; align-items:center; gap:8px; }
+  .hero-tag::before { content:''; display:inline-block; width:40px; height:1px; background:var(--accent); }
+  h1 { font-size:clamp(3rem,8vw,7rem); font-weight:800; line-height:0.95; letter-spacing:-2px; margin-bottom:1rem; }
+  .h1-name { color:var(--text); display:block; }
+  .h1-role { color:var(--accent); display:block; }
+  .hero-sub { font-family:var(--mono); font-size:13px; color:var(--muted); max-width:500px; line-height:1.8; margin:1.5rem 0 2rem; }
+  .hero-links { display:flex; gap:1rem; flex-wrap:wrap; }
+  .btn { font-family:var(--mono); font-size:12px; letter-spacing:1px; padding:10px 24px; border:1px solid; text-decoration:none; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:6px; }
+  .btn-primary { border-color:var(--accent); color:var(--accent); background:transparent; }
+  .btn-primary:hover { background:var(--accent); color:var(--bg); }
+  .btn-secondary { border-color:var(--muted); color:var(--muted); background:transparent; }
+  .btn-secondary:hover { border-color:var(--text); color:var(--text); }
+  .btn-devsec { border-color:var(--accent3); color:var(--accent3); background:transparent; }
+  .btn-devsec:hover { background:var(--accent3); color:var(--bg); }
+  .link-group { display:flex; flex-direction:column; gap:0.75rem; }
+  .link-row { display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; }
+  .link-row-label { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; width:80px; flex-shrink:0; }
+  .thm-badge-wrapper { margin-top:2.5rem; display:flex; flex-direction:column; gap:10px; }
+  .thm-badge-label { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:2px; display:flex; align-items:center; gap:8px; }
+  .thm-badge-label::before { content:''; display:inline-block; width:20px; height:1px; background:var(--accent); }
+  .thm-badge-label::after { content:''; flex:1; height:1px; background:var(--border); }
+  .thm-badge-frame { border:1px solid var(--border); background:var(--bg2); padding:12px 16px; display:inline-flex; align-items:center; width:fit-content; }
+  .thm-badge-frame iframe { border:none; display:block; width:320px; height:80px; }
+  .hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:2rem; border:1px solid var(--border); background:var(--border); }
+  .stat-box { background:var(--bg2); padding:1.5rem; text-align:center; }
+  .stat-num { font-size:2.5rem; font-weight:800; color:var(--accent); display:block; }
+  .stat-label { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; }
+  .sec-header { margin-bottom:3rem; }
+  .sec-tag { font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:3px; margin-bottom:0.75rem; display:block; }
+  .sec-title { font-size:2.5rem; font-weight:800; letter-spacing:-1px; }
+  .timeline { position:relative; }
+  .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, var(--accent), transparent); }
+  .tl-item { padding-left:2.5rem; margin-bottom:3rem; position:relative; }
+  .tl-dot { position:absolute; left:-5px; top:4px; width:11px; height:11px; background:var(--accent); border:2px solid var(--bg); transform:rotate(45deg); }
+  .tl-date { font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:1px; margin-bottom:0.25rem; }
+  .tl-company { font-size:1.1rem; font-weight:700; margin-bottom:0.15rem; }
+  .tl-role { font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:0.75rem; }
+  .tl-bullets { list-style:none; }
+  .tl-bullets li { font-family:var(--mono); font-size:12px; color:rgba(232,234,246,0.7); line-height:1.7; padding-left:1rem; position:relative; margin-bottom:0.25rem; }
+  .tl-bullets li::before { content:'›'; position:absolute; left:0; color:var(--accent2); }
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--border); }
+  .skill-cat { background:var(--bg2); padding:1.5rem; }
+  .skill-cat-title { font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:2px; margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+  .skill-cat-title::after { content:''; flex:1; height:1px; background:var(--border); }
+  .skill-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .tag { font-family:var(--mono); font-size:10px; padding:4px 10px; border:1px solid rgba(0,245,160,0.2); color:rgba(232,234,246,0.6); letter-spacing:0.5px; }
+  .tag.hot { border-color:rgba(0,195,255,0.4); color:var(--accent2); }
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1px; background:var(--border); }
+  .proj-card { background:var(--bg2); padding:2rem; position:relative; overflow:hidden; cursor:pointer; transition:background 0.2s; }
+  .proj-card:hover { background:var(--bg3); }
+  .proj-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--accent), var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .proj-card:hover::before { transform:scaleX(1); }
+  .proj-type { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:2px; margin-bottom:0.75rem; }
+  .proj-title { font-size:1.1rem; font-weight:700; margin-bottom:0.75rem; }
+  .proj-desc { font-family:var(--mono); font-size:11px; color:rgba(232,234,246,0.6); line-height:1.7; margin-bottom:1.25rem; }
+  .proj-meta { display:flex; gap:6px; flex-wrap:wrap; }
+  .proj-tag { font-family:var(--mono); font-size:9px; padding:3px 8px; background:rgba(0,245,160,0.08); border:1px solid rgba(0,245,160,0.15); color:var(--accent); letter-spacing:0.5px; }
+  .certs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1px; background:var(--border); }
+  .cert-card { background:var(--bg2); padding:1.25rem; display:flex; flex-direction:column; gap:6px; transition:background 0.2s; }
+  .cert-card:hover { background:var(--bg3); }
+  .cert-issuer { font-family:var(--mono); font-size:9px; color:var(--accent2); letter-spacing:1px; }
+  .cert-name { font-size:13px; font-weight:700; line-height:1.3; }
+  .cert-dot { width:6px; height:6px; background:var(--accent); transform:rotate(45deg); margin-top:auto; }
+  #contact { text-align:center; }
+  .contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1px; background:var(--border); margin:3rem 0; }
+  .contact-item { background:var(--bg2); padding:1.5rem; text-align:center; }
+  .contact-label { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:1px; margin-bottom:0.5rem; }
+  .contact-val { font-family:var(--mono); font-size:12px; color:var(--accent); word-break:break-all; }
+  .resume-section { margin-top:3rem; }
+  .resume-label { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:3px; margin-bottom:1rem; display:flex; align-items:center; gap:8px; }
+  .resume-label::before { content:''; flex:1; height:1px; background:var(--border); }
+  .resume-label::after { content:''; flex:1; height:1px; background:var(--border); }
+  .resume-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1px; background:var(--border); }
+  .resume-card { background:var(--bg2); padding:1.75rem; display:flex; flex-direction:column; gap:12px; transition:background 0.2s; position:relative; overflow:hidden; }
+  .resume-card:hover { background:var(--bg3); }
+  .resume-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--accent), var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
+  .resume-card:hover::before { transform:scaleX(1); }
+  .resume-role { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:2px; }
+  .resume-title { font-size:1rem; font-weight:700; line-height:1.3; }
+  .resume-desc { font-family:var(--mono); font-size:11px; color:rgba(232,234,246,0.55); line-height:1.7; }
+  .resume-dl-btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; padding:9px 18px; border:1px solid var(--accent); color:var(--accent); background:transparent; text-decoration:none; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; margin-top:auto; width:fit-content; }
+  .resume-dl-btn:hover { background:var(--accent); color:var(--bg); }
+  .resume-dl-btn svg { width:13px; height:13px; flex-shrink:0; }
+  footer { border-top:1px solid var(--border); padding:2rem; text-align:center; font-family:var(--mono); font-size:11px; color:var(--muted); position:relative; z-index:1; }
+  .tab-bar { display:flex; gap:0; margin-bottom:2rem; border:1px solid var(--border); }
+  .tab-btn { font-family:var(--mono); font-size:11px; letter-spacing:1px; padding:10px 20px; background:transparent; border:none; color:var(--muted); cursor:pointer; transition:all 0.2s; flex:1; }
+  .tab-btn.active { background:var(--accent); color:var(--bg); }
+  .tab-btn:hover:not(.active) { color:var(--text); background:rgba(255,255,255,0.04); }
+  .reveal { opacity:0; transform:translateY(24px); transition:all 0.6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+  .blink { animation:blink 1s step-end infinite; }
+  @keyframes blink { 50%{opacity:0;} }
+  .divider { border:none; border-top:1px solid var(--border); margin:0; position:relative; z-index:1; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="nav-logo">CyberJudoSec<span class="blink">&#9646;</span></span>
+  <div class="nav-links">
+    <a onclick="scrollToSection('about')">about</a>
+    <a onclick="scrollToSection('experience')">experience</a>
+    <a onclick="scrollToSection('projects')">projects</a>
+    <a onclick="scrollToSection('certs')">certs</a>
+    <a onclick="scrollToSection('contact')">contact</a>
+  </div>
+</nav>
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="about">
+  <div class="hero-tag">threat intelligence &middot; threat hunting &middot; detection</div>
+  <h1><span class="h1-name">Alex Garcia</span><span class="h1-role">Cyber Analyst</span></h1>
+  <p class="hero-sub">4 years in cybersecurity. Hunting adversaries across SIEM telemetry, OSINT infrastructure, and endpoint forensics. I don't just detect threats &mdash; I map how they think.</p>
+  <div class="link-group hero-links">
+    <div class="link-row">
+      <span class="link-row-label">connect</span>
+      <a class="btn btn-primary" href="https://linkedin.com/in/mralejandrogarcia85" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+    </div>
+    <div class="link-row">
+      <span class="link-row-label">cyber</span>
+      <a class="btn btn-secondary" href="https://github.com/Hackth3br0nx" target="_blank" rel="noopener">GitHub &middot; Hackth3br0nx &#8599;</a>
+      <a class="btn btn-secondary" href="https://tryhackme.com/p/Hackth3br0nx" target="_blank" rel="noopener">TryHackMe &middot; Hackth3br0nx &#8599;</a>
+    </div>
+    <div class="link-row">
+      <span class="link-row-label">devsecops</span>
+      <a class="btn btn-devsec" href="https://codefinity.com/cv/35ba2da4-c3c9-459d-8d83-78a67c4f45fd" target="_blank" rel="noopener">Codefinity &middot; Coding &amp; DevSecOps Practice &#8599;</a>
+    </div>
+  </div>
+  <div class="thm-badge-wrapper reveal">
+    <div class="thm-badge-label">live tryhackme rank</div>
+    <div class="thm-badge-frame">
+      <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3223714" scrolling="no" title="TryHackMe Badge"></iframe>
+    </div>
+  </div>
+  <div class="hero-stats reveal">
+    <div class="stat-box"><span class="stat-num">4+</span><span class="stat-label">years experience</span></div>
+    <div class="stat-box"><span class="stat-num">14</span><span class="stat-label">certifications</span></div>
+    <div class="stat-box"><span class="stat-num">3</span><span class="stat-label">lab projects</span></div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="experience">
+  <div class="sec-header reveal">
+    <span class="sec-tag">// 01 &mdash; experience</span>
+    <h2 class="sec-title">Career Timeline</h2>
+  </div>
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">JAN 2026 &mdash; PRESENT</div>
+      <div class="tl-company">Business Operational Concepts</div>
+      <div class="tl-role">Threat Intelligence Analyst &middot; Remote</div>
+      <ul class="tl-bullets">
+        <li>OSINT enrichment via Maltego, SpiderFoot, Shodan, VirusTotal, Censys to analyze attacker infrastructure</li>
+        <li>Adversary TTP analysis mapped to MITRE ATT&amp;CK framework for detection development</li>
+        <li>Produce structured threat intelligence reports documenting IOCs and attacker campaigns</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">SEP 2024 &mdash; FEB 2026</div>
+      <div class="tl-company">SAIC</div>
+      <div class="tl-role">Cyber Defense Operations Analyst &middot; Remote</div>
+      <ul class="tl-bullets">
+        <li>Monitored enterprise security alerts across SIEM and endpoint platforms</li>
+        <li>Investigated phishing, malware alerts, and suspicious authentication activities</li>
+        <li>Analyzed logs to identify IOCs and unauthorized access attempts</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">JAN 2024 &mdash; PRESENT</div>
+      <div class="tl-company">MassMutual</div>
+      <div class="tl-role">Cloud Migration Consultant &middot; Remote</div>
+      <ul class="tl-bullets">
+        <li>Enterprise support across endpoint, identity, and cloud environments</li>
+        <li>Nexthink platform for endpoint performance detection and resolution</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">MAR 2021 &mdash; NOV 2023</div>
+      <div class="tl-company">Chewy</div>
+      <div class="tl-role">IAM / Help Desk Analyst &middot; Plantation, FL</div>
+      <ul class="tl-bullets">
+        <li>Technical support for Windows, VPN, and enterprise authentication systems</li>
+        <li>Nexthink analytics for endpoint and network diagnostics</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="skills">
+  <div class="sec-header reveal">
+    <span class="sec-tag">// 02 &mdash; capabilities</span>
+    <h2 class="sec-title">Skills &amp; Tools</h2>
+  </div>
+  <div class="skills-grid reveal">
+    <div class="skill-cat"><div class="skill-cat-title">SIEM &amp; Detection</div><div class="skill-tags"><span class="tag hot">Microsoft Sentinel</span><span class="tag hot">Splunk</span><span class="tag">KQL</span><span class="tag">Splunk SPL</span><span class="tag">Log Correlation</span><span class="tag">Detection Engineering</span></div></div>
+    <div class="skill-cat"><div class="skill-cat-title">Threat Intel &amp; OSINT</div><div class="skill-tags"><span class="tag hot">Maltego</span><span class="tag hot">Shodan</span><span class="tag hot">VirusTotal</span><span class="tag">SpiderFoot</span><span class="tag">Censys</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">IOC Analysis</span></div></div>
+    <div class="skill-cat"><div class="skill-cat-title">Endpoint &amp; Identity</div><div class="skill-tags"><span class="tag hot">Defender XDR</span><span class="tag">Defender for Endpoint</span><span class="tag">Defender for Identity</span><span class="tag">Microsoft Entra ID</span><span class="tag">Active Directory</span></div></div>
+    <div class="skill-cat"><div class="skill-cat-title">Scripting &amp; Analysis</div><div class="skill-tags"><span class="tag hot">Python</span><span class="tag">PowerShell</span><span class="tag">Bash</span><span class="tag">Wireshark</span><span class="tag">nmap</span><span class="tag">tcpdump</span></div></div>
+    <div class="skill-cat"><div class="skill-cat-title">Cloud Platforms</div><div class="skill-tags"><span class="tag hot">AWS</span><span class="tag hot">Azure</span><span class="tag">Cloud Security Monitoring</span><span class="tag">Cloud Migration</span></div></div>
+    <div class="skill-cat"><div class="skill-cat-title">Threat Hunting</div><div class="skill-tags"><span class="tag hot">Hypothesis-Based Hunting</span><span class="tag">Observation-Driven</span><span class="tag">Adversary Profiling</span><span class="tag">Lateral Movement Detection</span><span class="tag">Incident Response</span></div></div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="projects">
+  <div class="sec-header reveal">
+    <span class="sec-tag">// 03 &mdash; lab work</span>
+    <h2 class="sec-title">Projects &amp; Write-Ups</h2>
+  </div>
+  <div class="tab-bar reveal">
+    <button class="tab-btn active" onclick="switchTab(this,'all')">all</button>
+    <button class="tab-btn" onclick="switchTab(this,'intel')">threat intel</button>
+    <button class="tab-btn" onclick="switchTab(this,'hunting')">threat hunting</button>
+    <button class="tab-btn" onclick="switchTab(this,'network')">network</button>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="proj-card" data-cat="intel">
+      <div class="proj-type">// threat intelligence lab</div>
+      <div class="proj-title">Malicious Infrastructure Investigation &middot; Microsoft Sentinel</div>
+      <div class="proj-desc">Scenario: Investigate suspicious domain &amp; IP infrastructure. Correlated OSINT sources to map attacker relationships. Documented IOCs in structured intelligence report.</div>
+      <div class="proj-meta"><span class="proj-tag">Maltego</span><span class="proj-tag">Shodan</span><span class="proj-tag">VirusTotal</span><span class="proj-tag">MITRE ATT&amp;CK</span><span class="proj-tag">Censys</span></div>
+    </div>
+    <div class="proj-card" data-cat="hunting">
+      <div class="proj-type">// threat hunting lab</div>
+      <div class="proj-title">Impossible Travel Detection &middot; KQL + Sentinel</div>
+      <div class="proj-desc">Scenario: Simulated credential abuse in personal lab. Built KQL queries to identify impossible travel login patterns. Successfully detected abnormal authentication behavior.</div>
+      <div class="proj-meta"><span class="proj-tag">Microsoft Sentinel</span><span class="proj-tag">KQL</span><span class="proj-tag">Defender for Identity</span><span class="proj-tag">Hypothesis-Based</span></div>
+    </div>
+    <div class="proj-card" data-cat="network">
+      <div class="proj-type">// network analysis lab</div>
+      <div class="proj-title">DNS Tunneling Detection &middot; Wireshark + Kali</div>
+      <div class="proj-desc">Scenario: Packet captures with suspicious C2 traffic. Applied DNS and HTTP filters on Kali Linux. Identified DNS tunneling behavior used for data exfiltration.</div>
+      <div class="proj-meta"><span class="proj-tag">Wireshark</span><span class="proj-tag">Kali Linux</span><span class="proj-tag">DNS Analysis</span><span class="proj-tag">C2 Detection</span></div>
+    </div>
+  </div>
+  <div style="margin-top:2rem;padding:1.5rem;border:1px dashed rgba(0,245,160,0.2);font-family:var(--mono);font-size:12px;color:var(--muted);">
+    <span style="color:var(--accent);">+ </span> More write-ups in progress &mdash; TryHackMe rooms, OSINT investigations, and detection rule development coming soon.
+    <a href="https://github.com/Hackth3br0nx" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;"> View GitHub &#8594;</a>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="certs">
+  <div class="sec-header reveal">
+    <span class="sec-tag">// 04 &mdash; credentials</span>
+    <h2 class="sec-title">Certifications</h2>
+  </div>
+  <div class="certs-grid reveal">
+    <div class="cert-card"><div class="cert-issuer">EC-COUNCIL</div><div class="cert-name">Certified Ethical Hacker</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">GIAC</div><div class="cert-name">GSEC &mdash; Security Essentials</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">GIAC</div><div class="cert-name">GFACT &mdash; Foundational Cyber</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CompTIA</div><div class="cert-name">Security+</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CompTIA</div><div class="cert-name">Network+</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CompTIA</div><div class="cert-name">A+</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CompTIA</div><div class="cert-name">Infrastructure Specialist</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CompTIA</div><div class="cert-name">Operations Specialist</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">AWS</div><div class="cert-name">Solutions Architect Associate</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">AWS</div><div class="cert-name">Cloud Practitioner</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">MICROSOFT</div><div class="cert-name">Azure Administrator AZ-104</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">MICROSOFT</div><div class="cert-name">Azure Fundamentals AZ-900</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">CISCO</div><div class="cert-name">CCNA</div><div class="cert-dot"></div></div>
+    <div class="cert-card"><div class="cert-issuer">OKTA</div><div class="cert-name">Certified Professional</div><div class="cert-dot"></div></div>
+  </div>
+</section>
+</div>
+
+<hr class="divider">
+
+<div style="position:relative;z-index:1;padding:0 2rem;">
+<section id="contact">
+  <div class="sec-header reveal" style="text-align:center;">
+    <span class="sec-tag" style="display:block;text-align:center;">// 05 &mdash; connect</span>
+    <h2 class="sec-title">Get In Touch</h2>
+    <p style="font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:1rem;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.8;">Open to threat analyst roles, consulting, and collaboration on security research.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <div class="contact-item"><div class="contact-label">email</div><div class="contact-val">CyberJudoSec@gmail.com</div></div>
+    <div class="contact-item"><div class="contact-label">phone</div><div class="contact-val">(754) 457-0325</div></div>
+    <div class="contact-item"><div class="contact-label">location</div><div class="contact-val">Forsyth, Georgia</div></div>
+    <div class="contact-item"><div class="contact-label">linkedin</div><div class="contact-val"><a href="https://linkedin.com/in/mralejandrogarcia85" target="_blank" rel="noopener" style="color:var(--accent2);text-decoration:none;">mralejandrogarcia85 &#8599;</a></div></div>
+  </div>
+  <div class="resume-section reveal">
+    <div class="resume-label">download resume</div>
+    <div class="resume-grid">
+      <div class="resume-card">
+        <div class="resume-role">// threat intelligence</div>
+        <div class="resume-title">Cyber Threat Intelligence Analyst</div>
+        <div class="resume-desc">Focused on adversary infrastructure analysis, OSINT enrichment, IOC documentation, and MITRE ATT&amp;CK mapping. Best for CTI and threat intelligence roles.</div>
+        <a class="resume-dl-btn" href="resumes/Cyber_Threat_Intelligence_Analyst_Resume.pdf" download>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/></svg>
+          Download PDF
+        </a>
+      </div>
+      <div class="resume-card">
+        <div class="resume-role">// threat hunting</div>
+        <div class="resume-title">Cybersecurity Threat Analyst</div>
+        <div class="resume-desc">Focused on proactive threat hunting, KQL detection queries, SIEM investigation, and endpoint forensics. Best for SOC analyst and threat hunting roles.</div>
+        <a class="resume-dl-btn" href="resumes/Cybersecurity_Threat_Analyst_Resume.pdf" download>
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/></svg>
+          Download PDF
+        </a>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
+    <a class="btn btn-primary" href="mailto:CyberJudoSec@gmail.com">Send Email &#8599;</a>
+    <a class="btn btn-secondary" href="https://linkedin.com/in/mralejandrogarcia85" target="_blank" rel="noopener">LinkedIn &#8599;</a>
+  </div>
+</section>
+</div>
+
+<footer>
+  <span style="color:var(--accent);">alex garcia</span> &middot; cybersecurity analyst &middot; forsyth, ga &middot; <span style="color:var(--accent2);">CyberJudoSec@gmail.com</span>
+</footer>
+
+<script>
+function scrollToSection(id) { document.getElementById(id).scrollIntoView({behavior:'smooth'}); }
+function switchTab(btn, cat) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.proj-card').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? 'block' : 'none';
+  });
+}
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
