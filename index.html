@@ -38,15 +38,15 @@
     padding:0 2rem; height:60px;
   }
   .nav-logo { font-family:var(--mono); color:var(--accent); font-size:14px; letter-spacing:2px; }
-  .nav-links { display:flex; gap:2rem; }
-  .nav-links a { font-family:var(--mono); font-size:12px; color:var(--muted); text-decoration:none; letter-spacing:1px; cursor:pointer; transition:color 0.2s; }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a { font-family:var(--mono); font-size:11px; color:var(--muted); text-decoration:none; letter-spacing:1px; cursor:pointer; transition:color 0.2s; }
   .nav-links a:hover { color:var(--accent); }
   section { position:relative; z-index:1; padding:5rem 2rem; max-width:1100px; margin:0 auto; }
   #about { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:80px; }
   .hero-tag { font-family:var(--mono); font-size:14px; color:var(--accent); letter-spacing:3px; margin-bottom:1.5rem; display:flex; align-items:center; gap:8px; }
   .hero-tag::before { content:''; display:inline-block; width:40px; height:1px; background:var(--accent); }
   h1, h2, h3 { color:var(--text); font-family:'Syne', sans-serif; font-weight:800; }
-  h1 { font-size:clamp(3rem,8vw,7rem); line-height:0.95; letter-spacing:-2px; margin-bottom:1rem; }
+  h1 { font-size:clamp(2.5rem,6vw,5.5rem); line-height:0.95; letter-spacing:-2px; margin-bottom:1rem; }
   .h1-name { color:var(--text); display:block; font-family:'Syne', sans-serif; }
   .h1-role { color:var(--accent); display:block; font-family:'Syne', sans-serif; }
   .hero-sub { font-family:var(--mono); font-size:15px; color:var(--muted); max-width:560px; line-height:1.8; margin:1.5rem 0 2rem; }
@@ -62,7 +62,41 @@
   .btn-devsec:hover { background:var(--accent3); color:var(--bg); }
   .btn-thlabs { border-color:var(--accent4); color:var(--accent4); background:transparent; }
   .btn-thlabs:hover { background:var(--accent4); color:var(--bg); }
-  .thm-badge-wrapper { margin-top:2.5rem; display:flex; flex-direction:column; gap:10px; }
+  .whoami-block {
+    margin-top:2rem; border:1px solid var(--border); background:var(--bg2);
+    font-family:var(--mono);
+  }
+  .whoami-trigger {
+    display:flex; align-items:center; gap:10px; padding:0.85rem 1.25rem;
+    cursor:pointer; border:none; background:transparent; width:100%; text-align:left;
+    transition:background 0.2s;
+  }
+  .whoami-trigger:hover { background:var(--bg3); }
+  .whoami-prompt { font-size:13px; color:var(--accent); }
+  .whoami-cmd { font-size:13px; color:var(--text); }
+  .whoami-arrow { font-size:11px; color:var(--accent); margin-left:auto; transition:transform 0.3s; }
+  .whoami-arrow.open { transform:rotate(90deg); }
+  .whoami-body { display:none; border-top:1px solid var(--border); padding:1.5rem; }
+  .whoami-body.open { display:block; }
+  .whoami-photos {
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--border); margin-bottom:1.25rem;
+  }
+  .whoami-photo-wrap { background:var(--bg2); position:relative; overflow:hidden; }
+  .whoami-photo-wrap img {
+    width:100%; display:block; object-fit:cover;
+    max-height:380px; filter:brightness(0.92) contrast(1.05);
+    transition:filter 0.3s;
+  }
+  .whoami-photo-wrap:hover img { filter:brightness(1) contrast(1.1); }
+  .whoami-photo-label {
+    position:absolute; bottom:0; left:0; right:0;
+    font-family:var(--mono); font-size:11px; color:var(--accent);
+    background:rgba(10,14,26,0.82); padding:6px 12px; letter-spacing:1px;
+  }
+  .whoami-output { font-size:13px; line-height:1.9; color:rgba(232,234,246,0.75); }
+  .whoami-output .whoami-key { color:var(--accent2); margin-right:8px; }
+  .whoami-output div { margin-bottom:0.35rem; }
   .thm-badge-label { font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:2px; display:flex; align-items:center; gap:8px; }
   .thm-badge-label::before { content:''; display:inline-block; width:20px; height:1px; background:var(--accent); }
   .thm-badge-label::after { content:''; flex:1; height:1px; background:var(--border); }
@@ -165,10 +199,11 @@
 <body>
 
 <nav>
-  <span class="nav-logo">CyberJudoSec<span class="blink">&#9646;</span></span>
+  <span class="nav-logo"><span id="typewriter"></span><span class="blink">&#9646;</span></span>
   <div class="nav-links">
     <a onclick="scrollToSection('about')">about</a>
     <a onclick="scrollToSection('experience')">experience</a>
+    <a onclick="scrollToSection('skills')">skills</a>
     <a onclick="scrollToSection('projects')">projects</a>
     <a onclick="scrollToSection('certs')">certs</a>
     <a onclick="scrollToSection('contact')">contact</a>
@@ -184,6 +219,36 @@
     <span class="h1-role">Cyber Analyst</span>
   </h1>
   <p class="hero-sub">20 years of operational experience across the military, enterprise IT, QA engineering, and cybersecurity. I don't wait for alerts to find threats &mdash; I hunt them. Every investigation I run follows the same discipline I learned managing ordnance on a carrier: observe carefully, form a hypothesis, validate with evidence, and never guess.</p>
+
+  <div class="whoami-block">
+    <button class="whoami-trigger" onclick="toggleWhoami(this)">
+      <span class="whoami-prompt">root@cyberjudosec:~$</span>
+      <span class="whoami-cmd">whoami</span>
+      <span class="whoami-arrow">&#9658;</span>
+    </button>
+    <div class="whoami-body">
+      <div class="whoami-photos">
+        <div class="whoami-photo-wrap">
+          <img src="images/hacker.jpeg" alt="Alex Garcia — Cyber persona">
+          <div class="whoami-photo-label">// in the shadows</div>
+        </div>
+        <div class="whoami-photo-wrap">
+          <img src="images/professional.jpeg" alt="Alex Garcia — Professional">
+          <div class="whoami-photo-label">// in the boardroom</div>
+        </div>
+      </div>
+      <div class="whoami-output">
+        <div><span class="whoami-key">name</span>Alejandro Garcia</div>
+        <div><span class="whoami-key">alias</span>CyberJudoSec &middot; Hackth3br0nx</div>
+        <div><span class="whoami-key">role</span>Threat Hunting &amp; Forensics Analyst</div>
+        <div><span class="whoami-key">origin</span>The Bronx, New York</div>
+        <div><span class="whoami-key">base</span>Forsyth, Georgia</div>
+        <div><span class="whoami-key">background</span>US Navy &rarr; QA Engineering &rarr; Network &rarr; IT Ops &rarr; Cloud &rarr; SOC &rarr; Threat Hunting</div>
+        <div><span class="whoami-key">philosophy</span>Observe. Hypothesize. Validate. Never guess.</div>
+        <div><span class="whoami-key">status</span><span style="color:var(--accent);"><span class="blink">&#9646;</span> actively hunting</span></div>
+      </div>
+    </div>
+  </div>
 
   <div class="link-group">
     <div class="link-row">
@@ -778,6 +843,63 @@
 </footer>
 
 <script>
+  const phrases = [
+    "CyberJudoSec",
+    "Hello, World",
+    "Wake Up, Neo",
+    "Open Threat Intel",
+    "I Know KQL",
+    "Hack The Planet",
+    "Hack Th3 Br0nx",
+    "Nerdy Ninjutsu",
+    "Open Domain Expansion",
+    "ARISE",
+    "Wu-Tang Is For The Children",
+    "Follow The White Rabbit",
+    "Threat Detected",
+    "root@judosec:~#",
+    "Initiating Hunt",
+    "You Are Being Watched",
+    "There Is No Patch For Human Error"
+  ];
+  const el = document.getElementById('typewriter');
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+  let pauseTimer = null;
+
+  function type() {
+    const current = phrases[phraseIndex];
+    if (!deleting) {
+      charIndex++;
+      el.textContent = current.substring(0, charIndex);
+      if (charIndex === current.length) {
+        deleting = true;
+        pauseTimer = setTimeout(type, 2800);
+        return;
+      }
+      setTimeout(type, 120);
+    } else {
+      charIndex--;
+      el.textContent = current.substring(0, charIndex);
+      if (charIndex === 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(type, 600);
+        return;
+      }
+      setTimeout(type, 65);
+    }
+  }
+  type();
+
+  function toggleWhoami(btn) {
+    const body = btn.nextElementSibling;
+    const arrow = btn.querySelector('.whoami-arrow');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    arrow.classList.toggle('open', !isOpen);
+  }
   function toggleTL(btn) {
     const body = btn.nextElementSibling;
     const icon = btn.querySelector('.tl-toggle-icon');
