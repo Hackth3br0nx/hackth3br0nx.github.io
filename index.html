@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;500;600;700;800&display=swap');
   :root {
     --bg: #0a0e1a;
     --bg2: #0f1628;
@@ -23,7 +24,7 @@
     --sans: 'Syne', sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:var(--sans); overflow-x:hidden; }
+  body { background:var(--bg); color:var(--text); font-family:'Syne', sans-serif; overflow-x:hidden; }
   body::before {
     content:''; position:fixed; inset:0; z-index:0;
     background-image: linear-gradient(rgba(0,245,160,0.03) 1px, transparent 1px),
@@ -45,10 +46,10 @@
   #about { min-height:100vh; display:flex; flex-direction:column; justify-content:center; padding-top:80px; }
   .hero-tag { font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:3px; margin-bottom:1.5rem; display:flex; align-items:center; gap:8px; }
   .hero-tag::before { content:''; display:inline-block; width:40px; height:1px; background:var(--accent); }
-  h1, h2, h3 { color:var(--text); font-family:var(--sans); font-weight:800; }
-  h1 { font-size:clamp(2.8rem,5.5vw,5rem); line-height:1.0; letter-spacing:-1px; margin-bottom:1rem; }
-  .h1-name { color:var(--text); display:block; }
-  .h1-role { color:var(--accent); display:block; }
+  h1, h2, h3 { color:var(--text); font-family:'Syne', sans-serif; font-weight:800; }
+  h1 { font-size:clamp(3rem,8vw,7rem); line-height:0.95; letter-spacing:-2px; margin-bottom:1rem; }
+  .h1-name { color:var(--text); display:block; font-family:'Syne', sans-serif; }
+  .h1-role { color:var(--accent); display:block; font-family:'Syne', sans-serif; }
   .hero-sub { font-family:var(--mono); font-size:13px; color:var(--muted); max-width:500px; line-height:1.8; margin:1.5rem 0 2rem; }
   .link-group { display:flex; flex-direction:column; gap:0.75rem; }
   .link-row { display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; }
