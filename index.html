@@ -8,7 +8,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;500;600;700;800&display=swap');
   :root {
     --bg: #0a0e1a;
     --bg2: #0f1628;
@@ -78,12 +77,33 @@
   .sec-title { font-size:2.5rem; font-weight:800; letter-spacing:-1px; color:var(--text); font-family:var(--sans); }
   .timeline { position:relative; }
   .timeline::before { content:''; position:absolute; left:0; top:0; bottom:0; width:1px; background:linear-gradient(to bottom, var(--accent), transparent); }
-  .tl-item { padding-left:2.5rem; margin-bottom:3rem; position:relative; }
-  .tl-dot { position:absolute; left:-5px; top:4px; width:11px; height:11px; background:var(--accent); border:2px solid var(--bg); transform:rotate(45deg); }
+  .tl-item { padding-left:2.5rem; margin-bottom:1.75rem; position:relative; }
+  .tl-dot { position:absolute; left:-5px; top:14px; width:11px; height:11px; background:var(--accent); border:2px solid var(--bg); transform:rotate(45deg); transition:background 0.2s; }
   .tl-date { font-family:var(--mono); font-size:11px; color:var(--accent); letter-spacing:1px; margin-bottom:0.25rem; }
   .tl-company { font-size:1.1rem; font-weight:700; margin-bottom:0.15rem; color:var(--text); font-family:var(--sans); }
-  .tl-role { font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:0.75rem; }
-  .tl-bullets { list-style:none; }
+  .tl-role { font-family:var(--mono); font-size:12px; color:var(--muted); margin-bottom:0; }
+  .tl-toggle {
+    display:flex; align-items:center; justify-content:space-between;
+    cursor:pointer; padding:0.6rem 0; border:none; background:transparent;
+    width:100%; text-align:left; gap:1rem;
+  }
+  .tl-toggle:hover .tl-company { color:var(--accent); }
+  .tl-toggle-icon {
+    font-family:var(--mono); font-size:11px; color:var(--accent);
+    flex-shrink:0; transition:transform 0.25s; user-select:none;
+  }
+  .tl-toggle-icon.open { transform:rotate(90deg); }
+  .tl-body {
+    display:none; padding-top:0.75rem;
+    border-left:1px solid var(--border); margin-left:0.25rem; padding-left:1rem;
+  }
+  .tl-body.open { display:block; }
+  .tl-impact {
+    font-family:var(--mono); font-size:11px; color:var(--accent2);
+    line-height:1.7; margin-bottom:0.75rem; padding:0.6rem 0.75rem;
+    border-left:2px solid var(--accent2); background:rgba(0,195,255,0.05);
+  }
+  .tl-bullets { list-style:none; margin-bottom:0.5rem; }
   .tl-bullets li { font-family:var(--mono); font-size:12px; color:rgba(232,234,246,0.7); line-height:1.7; padding-left:1rem; position:relative; margin-bottom:0.25rem; }
   .tl-bullets li::before { content:'›'; position:absolute; left:0; color:var(--accent2); }
   .skills-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--border); }
@@ -99,8 +119,10 @@
   .proj-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg, var(--accent), var(--accent2)); transform:scaleX(0); transform-origin:left; transition:transform 0.3s; }
   .proj-card:hover::before { transform:scaleX(1); }
   .proj-type { font-family:var(--mono); font-size:10px; color:var(--accent); letter-spacing:2px; margin-bottom:0.75rem; }
-  .proj-title { font-size:1.1rem; font-weight:700; margin-bottom:0.75rem; color:var(--text); font-family:var(--sans); }
-  .proj-desc { font-family:var(--mono); font-size:11px; color:rgba(232,234,246,0.6); line-height:1.7; margin-bottom:1.25rem; }
+  .proj-title { font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--text); font-family:var(--sans); }
+  .proj-star { list-style:none; margin-bottom:1.25rem; display:flex; flex-direction:column; gap:0.5rem; }
+  .proj-star li { font-family:var(--mono); font-size:11px; color:rgba(232,234,246,0.7); line-height:1.6; display:grid; grid-template-columns:60px 1fr; gap:8px; }
+  .proj-star li span.star-label { color:var(--accent); font-size:10px; letter-spacing:1px; padding-top:1px; }
   .proj-meta { display:flex; gap:6px; flex-wrap:wrap; }
   .proj-tag { font-family:var(--mono); font-size:9px; padding:3px 8px; background:rgba(0,245,160,0.08); border:1px solid rgba(0,245,160,0.15); color:var(--accent); letter-spacing:0.5px; }
   .certs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1px; background:var(--border); }
@@ -161,7 +183,7 @@
     <span class="h1-name">Alex Garcia</span>
     <span class="h1-role">Cyber Analyst</span>
   </h1>
-  <p class="hero-sub">4 years in cybersecurity. Hunting adversaries across SIEM telemetry, OSINT infrastructure, and endpoint forensics. I don't just detect threats &mdash; I map how they think.</p>
+  <p class="hero-sub">20 years of operational experience across the military, enterprise IT, QA engineering, and cybersecurity. I don't wait for alerts to find threats &mdash; I hunt them. Every investigation I run follows the same discipline I learned managing ordnance on a carrier: observe carefully, form a hypothesis, validate with evidence, and never guess.</p>
 
   <div class="link-group">
     <div class="link-row">
@@ -188,7 +210,7 @@
   </div>
 
   <div class="hero-stats reveal">
-    <div class="stat-box"><span class="stat-num">4+</span><span class="stat-label">years experience</span></div>
+    <div class="stat-box"><span class="stat-num">20+</span><span class="stat-label">years experience</span></div>
     <div class="stat-box"><span class="stat-num">14</span><span class="stat-label">certifications</span></div>
     <div class="stat-box"><span class="stat-num">3</span><span class="stat-label">lab projects</span></div>
   </div>
@@ -204,53 +226,244 @@
     <span class="sec-tag">// 01 &mdash; experience</span>
     <h2 class="sec-title">Career Timeline</h2>
   </div>
+  <div style="font-family:var(--mono);font-size:11px;color:var(--accent);margin-bottom:2rem;display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(0,245,160,0.25);padding:6px 14px;">
+    <span style="font-size:10px;">&#9658;</span> click any role to expand details
+  </div>
   <div class="timeline reveal">
 
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">JAN 2026 &mdash; PRESENT</div>
-      <div class="tl-company">Business Operational Concepts</div>
-      <div class="tl-role">Threat Intelligence Analyst &middot; Remote</div>
-      <ul class="tl-bullets">
-        <li>OSINT enrichment via Maltego, SpiderFoot, Shodan, VirusTotal, and Censys to analyze attacker infrastructure</li>
-        <li>Adversary TTP analysis mapped to MITRE ATT&amp;CK framework for detection development</li>
-        <li>Produce structured threat intelligence reports documenting IOCs and attacker campaigns</li>
-      </ul>
+      <div class="tl-date">2026 &mdash; PRESENT</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Business Operational Concepts</div><div class="tl-role">Threat Hunting &amp; Forensics Analyst &middot; Remote</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Contributing to proactive threat detection by building hypothesis-driven hunt workflows and forensic investigation procedures that reduce attacker dwell time and improve detection coverage.</div>
+        <ul class="tl-bullets">
+          <li>Conduct hypothesis-driven threat hunts across enterprise telemetry</li>
+          <li>Investigate suspicious identity, endpoint, and network activity</li>
+          <li>Analyze attacker behavior aligned with MITRE ATT&amp;CK framework</li>
+          <li>Perform forensic investigation to reconstruct incident timelines</li>
+          <li>Develop detection queries and improve monitoring coverage</li>
+        </ul>
+      </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">SEP 2024 &mdash; FEB 2026</div>
-      <div class="tl-company">SAIC</div>
-      <div class="tl-role">Cyber Defense Operations Analyst &middot; Remote</div>
-      <ul class="tl-bullets">
-        <li>Monitored enterprise security alerts across SIEM and endpoint platforms</li>
-        <li>Investigated phishing attacks, malware alerts, and suspicious authentication activities</li>
-        <li>Analyzed logs to identify indicators of compromise and unauthorized access attempts</li>
-      </ul>
+      <div class="tl-date">2024 &mdash; 2026</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">SAIC</div><div class="tl-role">Cyber Defense Analyst II &middot; Remote</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Supported enterprise-level threat detection operations by monitoring and investigating security alerts across SIEM platforms, helping maintain visibility into adversary activity across a large-scale environment.</div>
+        <ul class="tl-bullets">
+          <li>Investigated security alerts within Microsoft Sentinel SIEM</li>
+          <li>Conducted log analysis using KQL queries</li>
+          <li>Monitored authentication events and endpoint telemetry</li>
+          <li>Applied MITRE ATT&amp;CK techniques to analyze adversary activity</li>
+          <li>Escalated security incidents and supported incident response operations</li>
+        </ul>
+      </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">JAN 2024 &mdash; PRESENT</div>
-      <div class="tl-company">MassMutual</div>
-      <div class="tl-role">Cloud Migration Consultant &middot; Remote</div>
-      <ul class="tl-bullets">
-        <li>Enterprise-level support across endpoint, identity, and cloud environments</li>
-        <li>Nexthink platform to detect and address endpoint performance issues</li>
-        <li>Identify and mitigate network disruptions to maintain optimal system functionality</li>
-      </ul>
+      <div class="tl-date">2024 &mdash; 2025</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">MassMutual</div><div class="tl-role">Cloud Migration Consultant &middot; Remote</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Helped ensure cloud migrations were completed with security in mind, reviewing IAM configurations and documenting security considerations that reduced risk exposure during infrastructure transitions.</div>
+        <ul class="tl-bullets">
+          <li>Supported enterprise cloud migration initiatives across AWS and Azure environments</li>
+          <li>Reviewed IAM configurations and access control policies</li>
+          <li>Validated logging and monitoring for cloud workloads</li>
+          <li>Documented security considerations for migrated systems</li>
+        </ul>
+      </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-dot"></div>
-      <div class="tl-date">MAR 2021 &mdash; NOV 2023</div>
-      <div class="tl-company">Chewy</div>
-      <div class="tl-role">IAM / Help Desk Analyst &middot; Plantation, FL</div>
-      <ul class="tl-bullets">
-        <li>Technical support for Windows systems, VPN connectivity, and enterprise authentication</li>
-        <li>Nexthink analytics to diagnose and resolve endpoint and network issues</li>
-      </ul>
+      <div class="tl-date">2021 &mdash; 2023</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Chewy</div><div class="tl-role">IT Operations Center Analyst I &middot; Service Desk Analyst II &middot; Plantation, FL</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Maintained operational continuity for enterprise IT systems while building foundational security skills in identity and access management, authentication monitoring, and security incident escalation.</div>
+        <ul class="tl-bullets">
+          <li>Monitored enterprise systems and IT infrastructure health</li>
+          <li>Supported authentication systems and MFA troubleshooting</li>
+          <li>Escalated security-related incidents to appropriate teams</li>
+          <li>Managed identity and access management across enterprise platforms</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2020 &mdash; 2021</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Point Blank Enterprises</div><div class="tl-role">Systems Support Technician Level II</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Consistently exceeded performance benchmarks by resolving over 258 escalated incidents with a 98% first-call resolution rate, cutting average resolution time by 35% through systematic troubleshooting.</div>
+        <ul class="tl-bullets">
+          <li>Managed and resolved over 258 Tier 2 escalated support incidents</li>
+          <li>Reduced average resolution time by 35% through efficient troubleshooting</li>
+          <li>Achieved 98% first call resolution rate for end-user technical issues</li>
+          <li>Provided system support for enterprise hardware, software, and network issues</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2019 &mdash; 2020</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">BetterNOI</div><div class="tl-role">Junior Network Engineer</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Built hands-on experience with network security fundamentals by implementing firewall configurations and VLAN segmentation, directly contributing to a more segmented and secure network architecture.</div>
+        <ul class="tl-bullets">
+          <li>Monitored network performance and infrastructure health metrics</li>
+          <li>Configured and maintained LAN and WAN networking equipment</li>
+          <li>Implemented firewall configurations and VLAN segmentation</li>
+          <li>Diagnosed connectivity issues and optimized network performance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2018 &mdash; 2020</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Omnicomm Systems</div><div class="tl-role">QA Analyst II</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Ensured the reliability and compliance of clinical trial software used by government agencies and private healthcare and pharmaceutical companies, where software defects carried real-world patient safety implications.</div>
+        <ul class="tl-bullets">
+          <li>Performed manual testing of clinical trial management software used by government and pharmaceutical clients</li>
+          <li>Validated regulatory compliance requirements for healthcare and clinical data platforms</li>
+          <li>Designed and executed test cases to validate software functionality and data integrity</li>
+          <li>Investigated defects and collaborated with engineering teams on root cause analysis</li>
+          <li>Supported regression testing and release validation cycles for mission-critical systems</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2017 &mdash; 2018</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Spirit Airlines</div><div class="tl-role">QA Analyst I</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Helped maintain the quality and reliability of airline reservation and operations software used daily by thousands of customers and airline staff, catching defects before they reached production.</div>
+        <ul class="tl-bullets">
+          <li>Performed manual testing of airline reservation and operational software systems</li>
+          <li>Tested hardware and software integrations used by airline operations teams</li>
+          <li>Documented defects and tracked bug reports within issue tracking systems</li>
+          <li>Worked with development teams to validate software fixes and releases</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2014 &mdash; 2016</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">United Healthcare</div><div class="tl-role">Enrollment Team Coordinator</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Stepped into leadership during operational gaps and system outages, keeping enrollment teams functional and reducing disruption to healthcare services for customers depending on timely enrollment support.</div>
+        <ul class="tl-bullets">
+          <li>Served as liaison between healthcare enrollment teams and IT support</li>
+          <li>Coordinated issue resolution for system outages affecting phones and account access</li>
+          <li>Acted as interim supervisor during operational escalations or staffing gaps</li>
+          <li>Assisted agents with troubleshooting enrollment system issues</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2012 &mdash; 2014</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">United Healthcare</div><div class="tl-role">Enrollment Agent</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Helped customers navigate complex healthcare enrollment processes with accuracy and empathy, supporting program access for vulnerable populations including prenatal care and smoking cessation participants.</div>
+        <ul class="tl-bullets">
+          <li>Provided inbound customer support for healthcare enrollment programs</li>
+          <li>Conducted health surveys and intake assessments for pre-existing conditions</li>
+          <li>Assisted with prenatal care and smoking cessation program enrollment</li>
+          <li>Documented patient information and coordinated with healthcare support teams</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2010 &mdash; 2012</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Secured Health Plans</div><div class="tl-role">Licensed Health Insurance Agent</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Built a client book through consultative selling and compliance-focused advising, helping individuals and families find appropriate healthcare and financial coverage while maintaining full regulatory standards.</div>
+        <ul class="tl-bullets">
+          <li>Sold health insurance policies, life insurance products, and annuities</li>
+          <li>Maintained compliance with insurance regulations and licensing standards</li>
+          <li>Built long-term client relationships through consultative sales approaches</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2008 &mdash; 2010</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">Foot Locker</div><div class="tl-role">Assistant Store Manager</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Led day-to-day store operations and team development, maintaining strong sales performance and customer satisfaction through consistent staff coaching and operational discipline.</div>
+        <ul class="tl-bullets">
+          <li>Managed retail sales operations and daily store performance metrics</li>
+          <li>Supervised staff scheduling, training, and performance coaching</li>
+          <li>Oversaw cash management, inventory control, and loss prevention procedures</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2003 &mdash; 2007</div>
+      <button class="tl-toggle" onclick="toggleTL(this)">
+        <div><div class="tl-company">United States Navy</div><div class="tl-role">Aviation Ordnance Airman &middot; USS George Washington</div></div>
+        <span class="tl-toggle-icon">&#9658;</span>
+      </button>
+      <div class="tl-body">
+        <div class="tl-impact">Served honorably in a high-stakes, zero-tolerance environment managing explosive ordnance systems, developing the discipline, attention to detail, and accountability under pressure that defines the foundation of a strong security professional.</div>
+        <ul class="tl-bullets">
+          <li>Managed and maintained explosive ordnance systems following strict safety protocols</li>
+          <li>Conducted inspections and maintenance of weapons support equipment</li>
+          <li>Coordinated logistics, supply chain operations, and mission readiness activities</li>
+          <li>Assisted with operational planning and resource allocation for aviation missions</li>
+        </ul>
+      </div>
     </div>
 
   </div>
@@ -267,69 +480,141 @@
     <h2 class="sec-title">Skills &amp; Tools</h2>
   </div>
   <div class="skills-grid reveal">
+
     <div class="skill-cat">
       <div class="skill-cat-title">SIEM &amp; Detection</div>
       <div class="skill-tags">
         <span class="tag hot">Microsoft Sentinel</span>
         <span class="tag hot">Splunk</span>
+        <span class="tag hot">Elastic SIEM</span>
         <span class="tag">KQL</span>
         <span class="tag">Splunk SPL</span>
+        <span class="tag">ES|QL</span>
         <span class="tag">Log Correlation</span>
         <span class="tag">Detection Engineering</span>
+        <span class="tag">Alert Triage</span>
+        <span class="tag">UEBA</span>
+        <span class="tag">Security Monitoring</span>
       </div>
     </div>
+
     <div class="skill-cat">
       <div class="skill-cat-title">Threat Intel &amp; OSINT</div>
       <div class="skill-tags">
         <span class="tag hot">Maltego</span>
         <span class="tag hot">Shodan</span>
         <span class="tag hot">VirusTotal</span>
+        <span class="tag hot">ZeroFox</span>
         <span class="tag">SpiderFoot</span>
         <span class="tag">Censys</span>
+        <span class="tag">SecurityTrails</span>
         <span class="tag">MITRE ATT&amp;CK</span>
         <span class="tag">IOC Analysis</span>
+        <span class="tag">Threat Actor Profiling</span>
+        <span class="tag">Dark Web Monitoring</span>
+        <span class="tag">Intel Report Writing</span>
       </div>
     </div>
+
     <div class="skill-cat">
       <div class="skill-cat-title">Endpoint &amp; Identity</div>
       <div class="skill-tags">
         <span class="tag hot">Defender XDR</span>
+        <span class="tag hot">Okta</span>
+        <span class="tag hot">Wiz</span>
+        <span class="tag hot">Forcepoint</span>
         <span class="tag">Defender for Endpoint</span>
         <span class="tag">Defender for Identity</span>
+        <span class="tag">Defender for Office 365</span>
         <span class="tag">Microsoft Entra ID</span>
         <span class="tag">Active Directory</span>
+        <span class="tag">SAML</span>
+        <span class="tag">OAuth 2.0</span>
+        <span class="tag">MFA</span>
+        <span class="tag">Zero Trust</span>
+        <span class="tag">PAM</span>
       </div>
     </div>
+
     <div class="skill-cat">
       <div class="skill-cat-title">Scripting &amp; Analysis</div>
       <div class="skill-tags">
         <span class="tag hot">Python</span>
+        <span class="tag hot">KQL</span>
         <span class="tag">PowerShell</span>
         <span class="tag">Bash</span>
+        <span class="tag">Splunk SPL</span>
         <span class="tag">Wireshark</span>
         <span class="tag">nmap</span>
         <span class="tag">tcpdump</span>
+        <span class="tag">Regex</span>
+        <span class="tag">JSON Parsing</span>
+        <span class="tag">Log Analysis</span>
       </div>
     </div>
+
     <div class="skill-cat">
       <div class="skill-cat-title">Cloud Platforms</div>
       <div class="skill-tags">
         <span class="tag hot">AWS</span>
-        <span class="tag hot">Azure</span>
+        <span class="tag hot">Microsoft Azure</span>
+        <span class="tag hot">Google Cloud Platform</span>
         <span class="tag">Cloud Security Monitoring</span>
         <span class="tag">Cloud Migration</span>
+        <span class="tag">IAM Policy Review</span>
+        <span class="tag">S3 / Blob Storage</span>
+        <span class="tag">CloudTrail / Azure Monitor</span>
+        <span class="tag">Cloud SIEM Integration</span>
       </div>
     </div>
+
     <div class="skill-cat">
       <div class="skill-cat-title">Threat Hunting</div>
       <div class="skill-tags">
         <span class="tag hot">Hypothesis-Based Hunting</span>
-        <span class="tag">Observation-Driven</span>
+        <span class="tag hot">Threat Hunting Labs</span>
+        <span class="tag">Observation-Driven Hunting</span>
         <span class="tag">Adversary Profiling</span>
         <span class="tag">Lateral Movement Detection</span>
+        <span class="tag">Persistence Mechanism Detection</span>
+        <span class="tag">C2 Detection</span>
         <span class="tag">Incident Response</span>
+        <span class="tag">Digital Forensics</span>
+        <span class="tag">Timeline Reconstruction</span>
       </div>
     </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-title">Network Security</div>
+      <div class="skill-tags">
+        <span class="tag hot">DNS Analysis</span>
+        <span class="tag hot">TCP/IP</span>
+        <span class="tag">HTTP / HTTPS Analysis</span>
+        <span class="tag">Firewall Configuration</span>
+        <span class="tag">VLAN Segmentation</span>
+        <span class="tag">VPN</span>
+        <span class="tag">Packet Analysis</span>
+        <span class="tag">Network Forensics</span>
+        <span class="tag">IDS / IPS</span>
+        <span class="tag">Zero Trust Networking</span>
+      </div>
+    </div>
+
+    <div class="skill-cat">
+      <div class="skill-cat-title">Operating Systems</div>
+      <div class="skill-tags">
+        <span class="tag hot">Linux</span>
+        <span class="tag hot">Windows</span>
+        <span class="tag hot">Kali Linux</span>
+        <span class="tag">Ubuntu</span>
+        <span class="tag">macOS</span>
+        <span class="tag">iOS</span>
+        <span class="tag">Android</span>
+        <span class="tag">Windows Server</span>
+        <span class="tag">REMnux</span>
+      </div>
+    </div>
+
   </div>
 </section>
 </div>
@@ -354,7 +639,12 @@
     <div class="proj-card" data-cat="intel">
       <div class="proj-type">// threat intelligence lab</div>
       <div class="proj-title">Malicious Infrastructure Investigation &middot; Microsoft Sentinel</div>
-      <div class="proj-desc">Scenario: Investigate suspicious domain &amp; IP infrastructure. Correlated OSINT sources to map attacker relationships. Documented IOCs in structured intelligence report.</div>
+      <ul class="proj-star">
+        <li><span class="star-label">SCENARIO</span><span>Suspicious domain and IP addresses appeared in enterprise telemetry with no clear attribution. The SOC needed to determine whether these indicators were part of an active attacker campaign.</span></li>
+        <li><span class="star-label">GOAL</span><span>Identify the full scope of attacker infrastructure, map relationships between indicators, and produce an actionable intelligence report for the detection team.</span></li>
+        <li><span class="star-label">ACTIONS</span><span>Used Maltego to pivot across domains, IPs, and hosting providers. Cross-referenced findings in Shodan, VirusTotal, and Censys. Mapped all observed TTPs to MITRE ATT&amp;CK techniques.</span></li>
+        <li><span class="star-label">OUTCOME</span><span>Identified a cluster of related attacker infrastructure. Delivered a structured threat intelligence report with IOCs, infrastructure relationships, and ATT&amp;CK mappings ready for detection rule development.</span></li>
+      </ul>
       <div class="proj-meta">
         <span class="proj-tag">Maltego</span>
         <span class="proj-tag">Shodan</span>
@@ -367,7 +657,12 @@
     <div class="proj-card" data-cat="hunting">
       <div class="proj-type">// threat hunting lab</div>
       <div class="proj-title">Impossible Travel Detection &middot; KQL + Sentinel</div>
-      <div class="proj-desc">Scenario: Simulated credential abuse in personal lab. Built KQL queries to identify impossible travel login patterns. Successfully detected abnormal authentication behavior.</div>
+      <ul class="proj-star">
+        <li><span class="star-label">SCENARIO</span><span>Authentication logs showed user sign-ins from geographically distant locations within timeframes physically impossible to travel. The hypothesis: compromised credentials being used by a remote threat actor.</span></li>
+        <li><span class="star-label">GOAL</span><span>Build detection logic in Microsoft Sentinel to identify impossible travel login patterns and validate the hypothesis against simulated credential abuse in a personal lab environment.</span></li>
+        <li><span class="star-label">ACTIONS</span><span>Wrote KQL queries against sign-in logs to calculate travel distance and velocity between sequential logins. Filtered for anomalous patterns, correlated with Defender for Identity alerts.</span></li>
+        <li><span class="star-label">OUTCOME</span><span>Successfully detected simulated credential abuse scenarios. Query logic was tuned to reduce false positives and documented as a reusable detection rule template.</span></li>
+      </ul>
       <div class="proj-meta">
         <span class="proj-tag">Microsoft Sentinel</span>
         <span class="proj-tag">KQL</span>
@@ -379,12 +674,18 @@
     <div class="proj-card" data-cat="network">
       <div class="proj-type">// network analysis lab</div>
       <div class="proj-title">DNS Tunneling Detection &middot; Wireshark + Kali</div>
-      <div class="proj-desc">Scenario: Packet captures with suspicious C2 traffic. Applied DNS and HTTP filters on Kali Linux. Identified DNS tunneling behavior used for data exfiltration.</div>
+      <ul class="proj-star">
+        <li><span class="star-label">SCENARIO</span><span>Packet captures contained unusual DNS traffic patterns — high query frequency, abnormally long subdomains, and consistent outbound communication to a single external resolver. Potential C2 channel via DNS tunneling.</span></li>
+        <li><span class="star-label">GOAL</span><span>Confirm whether DNS tunneling was present, identify the exfiltration mechanism, and document the indicators for detection.</span></li>
+        <li><span class="star-label">ACTIONS</span><span>Loaded PCAP into Wireshark on Kali Linux. Applied DNS and HTTP display filters to isolate suspicious traffic. Analyzed subdomain length, query frequency, and payload patterns consistent with tunneling tools.</span></li>
+        <li><span class="star-label">OUTCOME</span><span>Confirmed DNS tunneling behavior used for data exfiltration. Documented IOCs including domain patterns, query intervals, and resolver IPs. Identified the likely tunneling tool based on traffic signatures.</span></li>
+      </ul>
       <div class="proj-meta">
         <span class="proj-tag">Wireshark</span>
         <span class="proj-tag">Kali Linux</span>
         <span class="proj-tag">DNS Analysis</span>
         <span class="proj-tag">C2 Detection</span>
+        <span class="proj-tag">PCAP Analysis</span>
       </div>
     </div>
 
@@ -477,6 +778,13 @@
 </footer>
 
 <script>
+  function toggleTL(btn) {
+    const body = btn.nextElementSibling;
+    const icon = btn.querySelector('.tl-toggle-icon');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    icon.classList.toggle('open', !isOpen);
+  }
   function scrollToSection(id) {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
   }
