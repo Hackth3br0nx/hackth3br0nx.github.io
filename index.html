@@ -49,11 +49,11 @@
   h1 { font-size:clamp(2.5rem,6vw,5.5rem); line-height:0.95; letter-spacing:-2px; margin-bottom:1rem; }
   .h1-name { color:var(--text); display:block; font-family:'Syne', sans-serif; }
   .h1-role { color:var(--accent); display:block; font-family:'Syne', sans-serif; }
-  .hero-sub { font-family:var(--mono); font-size:15px; color:var(--muted); max-width:560px; line-height:1.8; margin:1.5rem 0 2rem; }
+  .hero-sub { font-family:var(--mono); font-size:17px; color:var(--muted); max-width:560px; line-height:1.8; margin:1.5rem 0 2rem; }
   .link-group { display:flex; flex-direction:column; gap:0.75rem; }
   .link-row { display:flex; flex-wrap:wrap; gap:0.75rem; align-items:center; }
-  .link-row-label { font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:2px; width:90px; flex-shrink:0; }
-  .btn { font-family:var(--mono); font-size:14px; letter-spacing:1px; padding:10px 24px; border:1px solid; text-decoration:none; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:6px; }
+  .link-row-label { font-family:var(--mono); font-size:14px; color:var(--muted); letter-spacing:2px; width:90px; flex-shrink:0; }
+  .btn { font-family:var(--mono); font-size:16px; letter-spacing:1px; padding:10px 24px; border:1px solid; text-decoration:none; cursor:pointer; transition:all 0.2s; display:inline-flex; align-items:center; gap:6px; }
   .btn-primary { border-color:var(--accent); color:var(--accent); background:transparent; }
   .btn-primary:hover { background:var(--accent); color:var(--bg); }
   .btn-secondary { border-color:var(--muted); color:var(--muted); background:transparent; }
@@ -94,18 +94,18 @@
     font-family:var(--mono); font-size:11px; color:var(--accent);
     background:rgba(10,14,26,0.82); padding:6px 12px; letter-spacing:1px;
   }
-  .whoami-output { font-size:13px; line-height:1.9; color:rgba(232,234,246,0.75); }
+  .whoami-output { font-size:15px; line-height:1.9; color:rgba(232,234,246,0.75); }
   .whoami-output .whoami-key { color:var(--accent2); margin-right:8px; }
   .whoami-output div { margin-bottom:0.35rem; }
-  .thm-badge-label { font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:2px; display:flex; align-items:center; gap:8px; }
+  .thm-badge-label { font-family:var(--mono); font-size:14px; color:var(--accent); letter-spacing:2px; display:flex; align-items:center; gap:8px; }
   .thm-badge-label::before { content:''; display:inline-block; width:20px; height:1px; background:var(--accent); }
   .thm-badge-label::after { content:''; flex:1; height:1px; background:var(--border); }
-  .thm-badge-frame { border:1px solid var(--border); background:var(--bg2); padding:12px 16px; display:inline-flex; align-items:center; width:fit-content; }
+  .thm-badge-frame { border:1px solid var(--border); background:var(--bg2); padding:12px 16px; display:inline-flex; align-items:center; width:fit-content; margin-top:0.75rem; }
   .thm-badge-frame iframe { border:none; display:block; width:320px; height:80px; }
   .hero-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:2rem; border:1px solid var(--border); background:var(--border); }
   .stat-box { background:var(--bg2); padding:1.5rem; text-align:center; }
   .stat-num { font-size:2.5rem; font-weight:800; color:var(--accent); display:block; }
-  .stat-label { font-family:var(--mono); font-size:13px; color:var(--muted); letter-spacing:1px; }
+  .stat-label { font-family:var(--mono); font-size:15px; color:var(--muted); letter-spacing:1px; }
   .sec-header { margin-bottom:3rem; }
   .sec-tag { font-family:var(--mono); font-size:13px; color:var(--accent); letter-spacing:3px; margin-bottom:0.75rem; display:block; }
   .sec-title { font-size:2.5rem; font-weight:800; letter-spacing:-1px; color:var(--text); font-family:var(--sans); }
@@ -218,7 +218,7 @@
     <span class="h1-name">Alex Garcia</span>
     <span class="h1-role">Cyber Analyst</span>
   </h1>
-  <p class="hero-sub">20 years of operational experience across the military, enterprise IT, QA engineering, and cybersecurity. I don't wait for alerts to find threats &mdash; I hunt them. Every investigation I run follows the same discipline I learned managing ordnance on a carrier: observe carefully, form a hypothesis, validate with evidence, and never guess.</p>
+  <p class="hero-sub"><span id="hero-typewriter"></span><span class="blink" id="hero-cursor">&#9646;</span></p>
 
   <div class="whoami-block">
     <button class="whoami-trigger" onclick="toggleWhoami(this)">
@@ -267,7 +267,7 @@
     </div>
   </div>
 
-  <div class="thm-badge-wrapper reveal">
+  <div class="thm-badge-wrapper reveal" style="margin-top:3rem;">
     <div class="thm-badge-label">live tryhackme rank</div>
     <div class="thm-badge-frame">
       <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=3223714" scrolling="no" title="TryHackMe Badge"></iframe>
@@ -843,6 +843,31 @@
 </footer>
 
 <script>
+  const heroText = "20 years of operational experience across the military, enterprise IT, QA engineering, and cybersecurity. I evolved from using technology, to understanding it, to building it, to securing and hardening it. Along the way I learned what threats are, how to assess them, and how to hunt them. I don't wait for alerts to find threats — I hunt them. Every investigation I run follows the same discipline I learned managing ordnance on a carrier: observe carefully, form a hypothesis, validate with evidence, and never guess.";
+  const heroEl = document.getElementById('hero-typewriter');
+  let heroIndex = 0;
+  let heroDone = false;
+
+  function typeHero() {
+    if (heroIndex < heroText.length) {
+      heroEl.textContent += heroText[heroIndex];
+      heroIndex++;
+      setTimeout(typeHero, 28);
+    } else if (!heroDone) {
+      heroDone = true;
+      setTimeout(restartHero, 7000);
+    }
+  }
+
+  function restartHero() {
+    heroEl.textContent = '';
+    heroIndex = 0;
+    heroDone = false;
+    setTimeout(typeHero, 1400);
+  }
+
+  typeHero();
+
   const phrases = [
     "CyberJudoSec",
     "Hello, World",
