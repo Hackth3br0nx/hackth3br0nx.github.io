@@ -905,18 +905,46 @@
 
   <div class="resume-section reveal">
     <div class="resume-label">download resume</div>
-    <div class="resume-grid" style="grid-template-columns:1fr;">
-      <div class="resume-card">
-        <div class="resume-role">// alejandro garcia</div>
-        <div class="resume-title">Threat Hunting &amp; Detection Engineering Resume</div>
-        <div class="resume-desc">Covers threat hunting, DFIR, detection engineering, SIEM operations, cloud security, OSINT investigation, and MITRE ATT&amp;CK. Includes lab projects and full certification list.</div>
-        <a class="resume-dl-btn" href="resumes/Alejandro_Garcia_Resume.docx" download>
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/></svg>
-          Download Resume
-        </a>
-      </div>
+    <div style="border:1px solid var(--border);background:var(--bg2);padding:2.5rem;text-align:center;">
+      <div class="resume-role" style="margin-bottom:0.5rem;">// alejandro garcia</div>
+      <div class="resume-title" style="margin-bottom:0.75rem;">Threat Hunting &amp; Detection Engineering Resume</div>
+      <div class="resume-desc" style="max-width:500px;margin:0 auto 2rem;">Covers threat hunting, DFIR, detection engineering, SIEM operations, cloud security, OSINT investigation, and MITRE ATT&amp;CK. Includes lab projects and full certification list.</div>
+      <a href="resumes/Alejandro_Garcia_Resume.docx" download style="
+        display:inline-flex;
+        align-items:center;
+        gap:10px;
+        font-family:var(--mono);
+        font-size:16px;
+        letter-spacing:2px;
+        padding:16px 40px;
+        border:1px solid var(--accent);
+        color:var(--accent);
+        background:transparent;
+        text-decoration:none;
+        cursor:pointer;
+        position:relative;
+        overflow:hidden;
+        transition:color 0.3s;
+        animation:pulse-border 2s ease-in-out infinite;
+      " onmouseover="this.style.color='#0a0e1a';this.style.background='#00f5a0';this.style.animation='none';"
+         onmouseout="this.style.color='#00f5a0';this.style.background='transparent';this.style.animation='pulse-border 2s ease-in-out infinite';">
+        <svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="animation:bounce-dl 1.5s ease-in-out infinite;">
+          <path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
+        </svg>
+        Download Resume
+      </a>
     </div>
   </div>
+  <style>
+    @keyframes pulse-border {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0,245,160,0); border-color: rgba(0,245,160,0.6); }
+      50% { box-shadow: 0 0 16px 4px rgba(0,245,160,0.15); border-color: rgba(0,245,160,1); }
+    }
+    @keyframes bounce-dl {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(3px); }
+    }
+  </style>
 
   <div style="text-align:center;margin-top:2.5rem;display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;">
     <a class="btn btn-primary" href="mailto&#58;CyberJudoSec&#64;gmail&#46;com">Send Email &#8599;</a>
